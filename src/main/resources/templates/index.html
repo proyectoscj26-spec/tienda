@@ -3,8 +3,15 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{general/fragmentos :: head}"/>
+
     <body>
         <header th:replace="~{general/fragmentos :: header}"/>
+
+        <head th:replace="~{consultas/fragmentos :: tabs}"/>
+        <head th:replace="~{consultas/fragmentos :: tarjetas}"/>
+
+
         <footer th:replace="~{general/fragmentos :: footer}"/>
     </body>
 </html>
+    
