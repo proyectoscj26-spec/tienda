@@ -16,6 +16,14 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     //Consulta derivada que recuperE los producto de un rango de precio y los ordena por precio ascendentemente
     public List<Producto> findByPrecioBetweenOrderByPrecioAsc(BigDecimal precioInf, BigDecimal precioSup);
 
+    //Consulta ampliada que recupera los productos activos de un rango de precio con existencias mínimas, y los ordena por categoría y precio ascendentemente
+    @Query(value = "SELECT p FROM Producto p JOIN p.categoria c "
+            + "WHERE p.activo = true AND c.activo = true "
+            + "AND p.precio BETWEEN :precioInf AND :precioSup "
+            + "AND p.existencias >= :existencias "
+            + "ORDER BY c.descripcion ASC, p.precio ASC")
+    public List<Producto> consultaAmpliada(BigDecimal precioInf, BigDecimal precioSup, Integer existencias);
+
     //Consulta JPQL que recupera los producto de un rango de precio y los ordena por precio ascendentemente
     @Query(value = "SELECT p FROM Producto p WHERE p.precio BETWEEN :precioInf AND :precioSup ORDER BY p.precio ASC")
     public List<Producto> consultaJPQL(BigDecimal precioInf, BigDecimal precioSup);
